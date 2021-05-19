@@ -1,0 +1,60 @@
+<html>
+<head>
+    <script src="/js/jquery.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="css/botStyle.css" rel="stylesheet">
+</head>
+<body>
+<form id="chatForm" class="chatForm">
+    <div class="top_menu">
+        <div class="title">Mortimer</div>
+    </div>
+    <div id="request">
+    </div>
+    <div id="respond">
+    </div>
+    <input id="msg" class="form-control" type="text" placeholder="Type your message here..."/>
+    <button id="sendBtn" class="btn btn-light">Send</button>
+    <script>
+        var socket = new WebSocket('ws://localhost:8181/', 'chat');
+        socket.onopen = function () {
+
+            name = "name" + Math.floor(Math.random() * Math.floor(700));
+
+            socket.send('{"type": "join", "name":" ' + name + '"}');
+        }
+        $('#sendBtn').on('click', function (e) {
+            e.preventDefault();
+            msg = $('#msg').val();
+            request = $('<div class="container">' + msg +
+                '</div>');
+            socket.send('{"type": "msg", "msg": "' + msg + '"}');
+            $('#msg').val('');
+        });
+        socket.onmessage = function (msg) {
+            var data = JSON.parse(msg.data);
+            switch (data.type) {
+                case 'msg':
+                    respond = $('<div class="darker">' + data.msg +
+                        '</div>');
+                    $('#respond').append(respond);
+                    break;
+                case 'join':
+                    $('#users').empty();
+                    for (var i = 0; i < data.names.length; i++) {
+                        var user = $('<div>' + data.names[i] + '</div>');
+                        $('#users').append(user);
+                    }
+                    break;
+            }
+        };
+    </script>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
