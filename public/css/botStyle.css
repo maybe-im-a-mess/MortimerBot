@@ -1,26 +1,21 @@
-.form-control {
-    width: 80%;
-    margin-left: 3em;
-}
-
 .chatForm {
     position: absolute;
-    width: calc(100% - 20px);
-    max-width: 800px;
-    height: 500px;
+    width: 50%;
+    max-width: 100%;
+    height: calc(100% - 20px);
     border-radius: 10px;
-    background-color: #fff;
+    background-color: white;
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    background-color: #f8f8f8;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .top_menu {
-    position: relative;
-    background-color: #fff;
+    position: sticky;
+    top: 0rem;
+    background-color: white;
     width: 100%;
     height: 10%;
     padding: 20px 0 15px;
@@ -28,24 +23,87 @@
 }
 
 .top_menu .title {
-    position: relative;
+    position: static;
     text-align: center;
-    color: #bcbdc0;
-    font-size: 20px;
+    color: black;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: Avenir;
 }
 
-.container {
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px 0;
+.input-group {
+    position: sticky;
+    top: 33rem;
+    margin-bottom: 1rem;
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.darker {
-    border-color: #ccc;
-    background-color: #ddd;
-    border-radius: 10px;
+.form-control {
+    border-radius: 11px;
+}
+
+
+.text{
     padding: 10px;
-    margin: 10px 0;
+}
+
+.bubble-right {
+    font-size: 18px;
+    background-color: #ece5ce;
+    padding: 10px;
+    border-radius: 30px;
+    position: absolute;
+    right: 20px;
+    width: fit-content;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+.bubble-left {
+    font-size: 18px;
+    background-color: #ece5ce;
+    padding: 10px;
+    border-radius: 30px;
+    position: relative;
+    width: fit-content;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+.chat-bubble-container {
+    display: flex;
+    width: 100%;
+}
+
+.chat-bubble {
+    font-size: 1rem;
+    padding: 1rem 1.4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 2rem;
+    width: auto;
+    max-width: 70%;
+}
+
+.msg-bot {
+    color: black;
+    background-color: #ddd5f4;
+    margin-left:1rem;
+    margin-right: auto;
+}
+
+.msg-self {
+    color: black;
+    background-color: #f6e0df;
+    margin-right:1rem;
+    margin-left: auto;
 }

@@ -1,0 +1,32 @@
+{
+  "answers": [
+    {
+      "intent": "wandern",
+      "answer": "Wandern ist eine schöne Möglichkeit, sich zu erholen und Natur zu genießen."
+    },
+    {
+      "intent": "wo",
+      "answer": "Möchten Sie gerne im Ausland oder innerhalb von Deutschland wandern?"
+    },
+    {
+      "intent": "deutschland",
+      "answer": "Welcher Ort gefällt Ihnen: Wald, Berge, Fluss, See?"
+    },
+    {
+      "intent": "wald",
+      "answer": "Ich kann Ihnen Baumwipfelpfad Bayerischer Wald empfehlen"
+    },
+    {
+      "intent": "berge",
+      "answer": "Ich kann Ihnen Dreisessel empfehlen"
+    },
+    {
+      "intent": "fluss",
+      "answer": "Ich kann Ihnen Ickinger Wehr Runde von Schäftlarn empfehlen"
+    },
+    {
+      "intent": "see",
+      "answer": "Ich kann Ihnen Brombachsee empfehlen"
+    }
+  ]
+}

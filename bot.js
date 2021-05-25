@@ -13,12 +13,6 @@ class bot {
      * Bitte beachten Sie, dass die Server IP hardcodiert ist. Sie müssen sie umsetzten
      */
     constructor() {
-        this.dict = []
-        this.dict['suche'] = 'Wenn sie etwas suchen sind Sie hier falsch es geht um Drogen'
-        this.dict['rauchen'] = 'Rauchen ist eine schreckliche Sache.'
-        this.dict['trinken'] = 'Trinken kann man auch Wasser.'
-        this.dict['schlafen'] = 'Schlafen wirkt wie eine Droge ist aber gesund.'
-
 
         /** Die Websocketverbindung
          */
@@ -95,22 +89,17 @@ class bot {
      */
     post(nachricht) {
         var name = 'Mortimer'
-        var inhalt = 'Ich habe dich nicht verstanden wir wollten über Drogen reden'
-
-        for (var i in this.dict) {
-            console.log(i)
-            console.log(this.dict[i])
-        }
-
-        for (var j in this.dict) {
-            if (nachricht.includes(j)) {
-                inhalt = this.dict[j]
+        var intents = require('./answers.json')
+        var inhalt = 'Ich habe Sie nicht verstanden. Beginnen wir von vorne: Möchten Sie gerne im Ausland oder innerhalb von Deutschland wandern?'
+        nachricht = nachricht.toLowerCase()
+        for (var j = 0; j < intents.answers.length; j++) {
+            if (nachricht.includes(intents.answers[j].intent)) {
+                inhalt = intents.answers[j].answer
             }
         }
         /*
          * Verarbeitung
         */
-
         var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
         console.log('Send: ' + msg)
         this.client.con.sendUTF(msg)
