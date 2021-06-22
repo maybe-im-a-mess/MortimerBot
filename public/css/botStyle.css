@@ -33,7 +33,7 @@
 
 .input-group {
     position: sticky;
-    top: 33rem;
+    top: 90%;
     margin-bottom: 1rem;
     width: calc(100% - 40px);
     margin-left: 20px;
@@ -44,40 +44,9 @@
     border-radius: 11px;
 }
 
-
 .text{
     padding: 10px;
 }
-
-.bubble-right {
-    font-size: 18px;
-    background-color: #ece5ce;
-    padding: 10px;
-    border-radius: 30px;
-    position: absolute;
-    right: 20px;
-    width: fit-content;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: auto;
-}
-
-.bubble-left {
-    font-size: 18px;
-    background-color: #ece5ce;
-    padding: 10px;
-    border-radius: 30px;
-    position: relative;
-    width: fit-content;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-
-
-
-
 
 .chat-bubble-container {
     display: flex;

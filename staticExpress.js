@@ -1,95 +1,88 @@
-/* Pakete die wir brauchen */
-
+// Packages we need
 var bot = require('./bot.js')
 var express = require('express')
-
 var app = express()
 
-/* Nutzen einer statischen WebSeite
-*/
+// Use a static website
 app.use(express.static('public'))
 
-// Wir nutzen ein paar statische Ressourcen
+// Use static resources
 app.use('/css', express.static(__dirname + '/public/css'))
 app.use('/js', express.static(__dirname + '/public/js'))
 app.use('/images', express.static(__dirname + '/public/images'))
 
-// Wir starten den Express server
+// Start express server
 var server = app.listen(8081, function () {
-  var port = server.address().port
-  console.log('Server started at http://localhost:%s', port)
+    var port = server.address().port
+    console.log('Server started at http://localhost:%s', port)
 })
 
-// Das brauchen wir für unsere Websockets
+// Use the websockets
 var WSS = require('websocket').server,
-  http = require('http')
-
+    http = require('http')
 var server = http.createServer()
 server.listen(8181)
 
-/* Wir erstellen einen Bot, der kann sich aber noch nicht mit 
-    dem Socket Server verbinden, da dieser noch nciht läuft
-*/
+//Create a bot that still cannot connect with the socket server
 var myBot = new bot()
 
-// Hier erstellen wir den Server
+// Create a server
 var wss = new WSS({
-  httpServer: server,
-  autoAcceptConnections: false
+    httpServer: server,
+    autoAcceptConnections: false
 })
-
 var connections = {}
 
-// Wenn Sich ein client Socket mit dem Server verbinden will kommt er hier an
+// Use this to connect client socket with the server
 wss.on('request', function (request) {
-  var connection = request.accept('chat', request.origin)
+    var connection = request.accept('chat', request.origin)
 
-  connection.on('message', function (message) {
-    var name = ''
+    connection.on('message', function (message) {
+        var name = ''
 
-    for (var key in connections) {
-      if (connection === connections[key]) {
-        name = key
-      }
-    }
-
-    var data = JSON.parse(message.utf8Data)
-    var msg = 'leer'
-
-    // Variablen um später den letzten Satz und den Sender zu speichern
-    var uname
-    var utype
-    var umsg
-
-    switch (data.type) {
-      case 'join':
-        // Wenn der Typ join ist füge ich den Client einfach unserer Liste hinzu
-        connections[data.name] = connection
-        msg = '{"type": "join", "names": ["' + Object.keys(connections).join('","') + '"]}'
-        if (myBot.connected === false) {
-          myBot.connect()
+        for (var key in connections) {
+            if (connection === connections[key]) {
+                name = key
+            }
         }
 
-        break
-      case 'msg':
-        // Erstelle eine Nachricht in JSON mit Typ, Sender und Inhalt
-        msg = '{"type": "msg", "name": "' + name + '", "msg":"' + data.msg + '"}'
-        utype = 'msg'
-        uname = name
-        umsg = data.msg
-        break
-    }
+        var data = JSON.parse(message.utf8Data)
+        var msg = 'leer'
 
-    // Sende alle daten an alle verbundenen Sockets
-    for (var key in connections) {
-      if (connections[key] && connections[key].send) {
-        connections[key].send(msg)
-      }
-    }
+        // Variables to save the last message and the sender
+        var uname
+        var utype
+        var umsg
 
-    // Leite die Daten des Users an den Bot weiter, damit der antworten kann
-    if (uname !== 'Mortimer' && utype === 'msg') {
-      var test = myBot.post(umsg)
-    }
-  })
+        switch (data.type) {
+            case 'join':
+                // Add client to the list
+                connections[data.name] = connection
+                msg = '{"type": "join", "names": ["' + Object.keys(connections).join('","') + '"]}'
+                if (myBot.connected === false) {
+                    myBot.connect()
+                }
+
+                break
+            case 'msg':
+                // Create a message in JSON with the type, sender and content
+                msg = '{"type": "msg", "name": "' + name + '", "msg":"' + data.msg + '"}'
+                utype = 'msg'
+                uname = name
+                umsg = data.msg
+                break
+        }
+
+        // Send all data to connected sockets
+        for (var key in connections) {
+            if (connections[key] && connections[key].send) {
+                connections[key].send(msg)
+            }
+        }
+
+        // Send the data of the user for the bot to answer
+        if (uname !== 'Mortimer' && utype === 'msg') {
+            var test = myBot.post(umsg)
+        }
+    })
 })

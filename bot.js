@@ -1,36 +1,34 @@
 'use strict'
-
 var WebSocketClient = require('websocket').client
 
 /**
- * bot ist ein einfacher Websocket Chat Client
+ * Bot is a simple Websocket Chat Client
  */
-
 class bot {
 
     /**
-     * Konstruktor baut den client auf. Er erstellt einen Websocket und verbindet sich zum Server
-     * Bitte beachten Sie, dass die Server IP hardcodiert ist. Sie müssen sie umsetzten
+     * Constructor builds a client. It creates a websocket and connects to server.
      */
     constructor() {
 
-        /** Die Websocketverbindung
+        /** Connection to the websocket
          */
         this.client = new WebSocketClient()
+
         /**
-         * Wenn der Websocket verbunden ist, dann setzten wir ihn auf true
+         * Sets to true, when a websocket is connected.
          */
         this.connected = false
 
         /**
-         * Wenn die Verbindung nicht zustande kommt, dann läuft der Aufruf hier hinein
+         * Is used, if the connection does not work.
          */
         this.client.on('connectFailed', function (error) {
             console.log('Connect Error: ' + error.toString())
         })
 
         /**
-         * Wenn der Client sich mit dem Server verbindet sind wir hier
+         * Client is connected to the server.
          */
         this.client.on('connect', function (connection) {
             this.con = connection
@@ -40,16 +38,14 @@ class bot {
             })
 
             /**
-             * Es kann immer sein, dass sich der Client disconnected
-             * (typischer Weise, wenn der Server nicht mehr da ist)
+             * The client disconnects.
              */
             connection.on('close', function () {
                 console.log('echo-protocol Connection Closed')
             })
 
             /**
-             *    Hier ist der Kern, wenn immmer eine Nachricht empfangen wird, kommt hier die
-             *    Nachricht an.
+             * Receives the message.
              */
             connection.on('message', function (message) {
                 if (message.type === 'utf8') {
@@ -59,8 +55,7 @@ class bot {
             })
 
             /**
-             * Hier senden wir unsere Kennung damit der Server uns erkennt.
-             * Wir formatieren die Kennung als JSON
+             * For server to recognise.
              */
             function joinGesp() {
                 if (connection.connected) {
@@ -73,8 +68,7 @@ class bot {
     }
 
     /**
-     * Methode um sich mit dem Server zu verbinden. Achtung wir nutzen localhost
-     *
+     * To connect to the server.
      */
     connect() {
         this.client.connect('ws://localhost:8181/', 'chat')
@@ -82,24 +76,40 @@ class bot {
     }
 
     /**
-     * Hier muss ihre Verarbeitungslogik integriert werden.
-     * Diese Funktion wird automatisch im Server aufgerufen, wenn etwas ankommt, das wir
-     * nicht geschrieben haben
-     * @param nachricht auf die der bot reagieren soll
+     * Processing of the message.
+     * @param nachricht the bot has to react to.
      */
-    post(nachricht) {
+    async post(nachricht) {
+        var request = require('request');
+        var requestpromise = require('request-promise');
+        var querystring = require('querystring');
+
+        var endpointKey = "b0e625e8baa3485991cc4e513433925a";
+        var endpoint = "mortimer-authoring.cognitiveservices.azure.com";
+        var appId = "bd4daffe-1565-4382-968a-4d15f6a60752";
+        nachricht = nachricht.toLowerCase()
+        var utterance = nachricht;
+        var queryParams = {
+            "show-all-intents": true,
+            "verbose": true,
+            "query": utterance,
+            "subscription-key": endpointKey
+        }
+        var URI = `https://${endpoint}/luis/prediction/v3.0/apps/${appId}/slots/production/predict?${querystring.stringify(queryParams)}`
+        const antwort = await requestpromise(URI);
+        var parsedAnswer = JSON.parse(antwort);
+        var possibleIntent = parsedAnswer.prediction.topIntent
+
         var name = 'Mortimer'
         var intents = require('./answers.json')
         var inhalt = 'Ich habe Sie nicht verstanden. Beginnen wir von vorne: Möchten Sie gerne im Ausland oder innerhalb von Deutschland wandern?'
-        nachricht = nachricht.toLowerCase()
+
         for (var j = 0; j < intents.answers.length; j++) {
-            if (nachricht.includes(intents.answers[j].intent)) {
+            if (possibleIntent.includes(intents.answers[j].intent)) {
                 inhalt = intents.answers[j].answer
             }
         }
-        /*
-         * Verarbeitung
-        */
+
         var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
         console.log('Send: ' + msg)
         this.client.con.sendUTF(msg)

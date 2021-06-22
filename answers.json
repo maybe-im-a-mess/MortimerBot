@@ -1,32 +1,64 @@
 {
   "answers": [
     {
-      "intent": "wandern",
-      "answer": "Wandern ist eine schöne Möglichkeit, sich zu erholen und Natur zu genießen."
+      "intent": "Fahrrad",
+      "answer": "Ich kann dir 'Dove Elbe Runde von Dehnhaide' empfehlen. Das ist eine mittelschwere Fahrradtour, die ca. 3 Stunden dauert."
     },
     {
-      "intent": "wo",
-      "answer": "Möchten Sie gerne im Ausland oder innerhalb von Deutschland wandern?"
+      "intent": "Fluss",
+      "answer": "Ich habe für dich eine Empfehlung: der Donauweg."
     },
     {
-      "intent": "deutschland",
-      "answer": "Welcher Ort gefällt Ihnen: Wald, Berge, Fluss, See?"
+      "intent": "Für Einsteiger",
+      "answer": "Die beste Auswahl für dich ist 'Hopfensee Runde von Spöttl'. Das ist eine leichte Wanderung, für alle Fitnesslevel."
     },
     {
-      "intent": "wald",
-      "answer": "Ich kann Ihnen Baumwipfelpfad Bayerischer Wald empfehlen"
+      "intent": "Für Profis",
+      "answer": "Ich kann dir 'Gaisalpbachwasserfall Runde von Oberstdorf' empfehlen. Das ist eine schwere Wanderung, die ca. 6:30 dauert."
     },
     {
-      "intent": "berge",
-      "answer": "Ich kann Ihnen Dreisessel empfehlen"
+      "intent": "Gebirge",
+      "answer": "Für deine Anfrage passen Die schönsten Wanderungen im 'Dreisesselgebiet'. Dafür brauchst du nur ein festes Schuhwerk und 2 bis 5 Stunden."
     },
     {
-      "intent": "fluss",
-      "answer": "Ich kann Ihnen Ickinger Wehr Runde von Schäftlarn empfehlen"
+      "intent": "Kurz",
+      "answer": "Die beste Wahl für dich ist 'Gießstein – Schloss Lichtenstein Runde von Genkingen'. Das ist nur 8,42 km und dauert 2:20 Stunden."
     },
     {
-      "intent": "see",
-      "answer": "Ich kann Ihnen Brombachsee empfehlen"
+      "intent": "Lang",
+      "answer": "Möchtest du ein Paar Wochen oder sogar ein Monat mit Natur verbringen? Dann versuch 'Die 15 Etappen des Eifelsteigs — Zwischen Fels und Wasser'.Auf dem Eifelsteig legst du in 15 Etappen eine Strecke von rund 330 Kilometern zurück. Aber keine Sorge – dank guter Bus- und Bahnverbindungen kannst du dir auch nur einen Abschnitt des Eifelsteigs vornehmen oder die gesamte Tour auf mehrere Wanderungen aufteilen."
+    },
+    {
+      "intent": "Laufen",
+      "answer": "Ich habe für dich eine Empfehlung: 'Außenalster Runde von Messehallen'."
+    },
+    {
+      "intent": "Mit Kindern",
+      "answer": "Ich kann dir 'Tierfreigelände Nationalpark Bayerischer Wald, Nationalparkzentrum Lusen, Neuschönau' empfehlen. Das ist eine leichte Wanderung und passt für die ganze Familie."
+    },
+    {
+      "intent": "See",
+      "answer": "Eine shöne Möglichkeit für dich ist: 'Kochelsee'. Das ist eine mittelschwere Wanderung, die ca. 4 Stunden dauert."
+    },
+    {
+      "intent": "Suche nach Platz im Sommer",
+      "answer": "Wenn du im Sommer Natur genießen willst, dann versuch 'Der schönste Pfad im hohen Norden – der Heidschnuckenweg'."
+    },
+    {
+      "intent": "Suche nach Platz im Winter",
+      "answer": "Wenn du im Winter Natur genießen willst, dann passt dir eine Wanderung zum Barmsee."
+    },
+    {
+      "intent": "Suche nach Platz in Deutschland",
+      "answer": "Es gibt viele schöne Wanderungsmöglichkeiten in Deutschland. Was genau interessiert dich? Möchtest du im Gebirge wandern, oder eine See besuchen?"
+    },
+    {
+      "intent": "Wald",
+      "answer": "Die beste Auswahl für dich: 'Kleiner Arbersee Runde von Neuhütte'. Es dauert ca. 5 Stunden, aber du brauchst dafür alpine Erfahrung."
+    },
+    {
+    "intent": "Wasserfall",
+    "answer": "Ich habe für dich eine Empfehlung: 'Wanderung auf die Rißloch Wasserfälle bei Bodenmais im Bayerischen Wald'."
     }
   ]
 }

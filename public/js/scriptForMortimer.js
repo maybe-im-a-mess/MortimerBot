@@ -5,6 +5,7 @@ socket.onopen = function () {
 
     socket.send('{"type": "join", "name":" ' + name + '"}');
 }
+
 $('#sendBtn').on('click', function (e) {
     e.preventDefault();
     msg = $('#msg').val();
@@ -13,6 +14,7 @@ $('#sendBtn').on('click', function (e) {
     socket.send('{"type": "msg", "msg": "' + msg + '"}');
     $('#msg').val('');
 });
+
 socket.onmessage = function (msg) {
     var data = JSON.parse(msg.data);
     switch (data.type) {
