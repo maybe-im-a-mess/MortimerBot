@@ -102,7 +102,10 @@ class bot {
 
         var name = 'Mortimer'
         var intents = require('./answers.json')
-        var inhalt = 'Ich habe Sie nicht verstanden. Beginnen wir von vorne: Möchten Sie gerne im Ausland oder innerhalb von Deutschland wandern?'
+
+        var fallbackAnswers = ['Ich habe dich nicht verstanden. Beginnen wir von vorne: Wo möchtest du wandern?', 'Entschuldigung, ich verstehe dich leider nicht.', 'Kannst du bitte deine Anfrage anders formulieren?', 'Was genau interessiert dich?']
+
+        var inhalt = fallbackAnswers[Math.floor(Math.random() * fallbackAnswers.length)];
 
         for (var j = 0; j < intents.answers.length; j++) {
             if (possibleIntent.includes(intents.answers[j].intent)) {
